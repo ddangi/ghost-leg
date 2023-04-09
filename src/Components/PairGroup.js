@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import A11yTitle from "./A11yTitle";
 
-const PairGroup = ({ results, players, cases }) => {
+const PairGroup = ({ results, players, cases, names }) => {
   return (
     <>
       <A11yTitle element="h3" text="플레이어별 결과 리스트" />
       <Wrapper>
         {players.map((player, idx) => (
           <Pair key={idx}>
-            <Image src={player.src} alt={`${player.name} 플레이어`} />
+            <Case color={player.color}>{names[results[idx]]}</Case>
             <Case color={player.color}>{cases[results[idx]]}</Case>
           </Pair>
         ))}

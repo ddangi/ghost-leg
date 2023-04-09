@@ -4,6 +4,12 @@ const resetCase = (playerCount) => {
   return cases;
 };
 
+const resetName = (playerCount) => {
+  const names = {};
+  for (let i = 0; i < playerCount; i++) names[i] = "";
+  return names;
+};
+
 const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
@@ -40,4 +46,4 @@ const getRandomLegs = (playerCount) => {
   return legs;
 };
 
-export { resetCase, getRandomLegs, getRandomPlayers };
+export { resetCase, resetName, getRandomLegs, getRandomPlayers };

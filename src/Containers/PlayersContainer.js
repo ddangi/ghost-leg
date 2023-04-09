@@ -1,16 +1,24 @@
-import Players from "Components/Players";
+import PlayerList from "Components/Players";
 import React, { useContext } from "react";
 import { Context } from "Context";
 
 const PlayersContainer = () => {
-  const { state } = useContext(Context);
-  const { players } = state;
-  // console.log(
-  //   "playersContainer rendering",
-  //   players.map((p) => p.name)
-  // );
+  const { state, checkReady, inputName } = useContext(Context);
+  const { players, playerCount, cases, names, gameState, results } = state;
 
-  return <Players players={players} />;
+  return (
+    <PlayerList
+      players={players}
+      playerCount={playerCount}
+      cases={cases}
+      names={names}
+      results={results}
+      gameState={gameState}
+      checkReady={checkReady}
+      inputName={inputName}
+    />
+  );
 };
 
 export default React.memo(PlayersContainer);
+

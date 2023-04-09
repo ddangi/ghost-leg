@@ -10,14 +10,20 @@ const useHook = () => {
   const enterGame = useCallback(() => dispatch({ type: "ENTER_GAME" }), []);
   const startGame = useCallback(() => dispatch({ type: "START_GAME" }), []);
 
-  const checkReady = useCallback((cases) => {
-    const isReady = Object.values(cases).every((value) => value.trim() !== "");
+  const checkReady = useCallback((cases, names) => {
+    const isReady = Object.values(cases).every((value) => value.trim() !== "") 
+                 && Object.values(names).every((value) => value.trim() !== "");
     dispatch({ type: "CHECK_READY", isReady });
   }, []);
 
   const inputCase = useCallback((e, idx) => {
     const { value } = e.target;
     dispatch({ type: "INPUT_CASE", idx, value });
+  }, []);
+
+  const inputName = useCallback((e, idx) => {
+    const { value } = e.target;
+    dispatch({ type: "INPUT_NAME", idx, value });
   }, []);
 
   const goHome = useCallback(() => dispatch({ type: "GO_HOME" }), []);
@@ -35,6 +41,7 @@ const useHook = () => {
     startGame,
     checkReady,
     inputCase,
+    inputName,
     goHome,
     goResult,
     goGame,

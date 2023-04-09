@@ -1,64 +1,54 @@
-import { resetCase, getRandomLegs, getRandomPlayers } from "Utils";
+import { resetCase, resetName, getRandomLegs, getRandomPlayers } from "Utils";
 
 export const data = [
   {
     id: 1,
-    name: "토끼",
-    src: "https://image.flaticon.com/icons/svg/3069/3069187.svg",
+    name: "p1",
     color: "gray",
   },
   {
     id: 2,
-    name: "돼지",
-    src: "https://image.flaticon.com/icons/svg/3069/3069273.svg",
+    name: "p2",
     color: "crimson",
   },
   {
     id: 3,
-    name: "펭귄",
-    src: "https://image.flaticon.com/icons/svg/3069/3069217.svg",
+    name: "p3",
     color: "darkolivegreen",
   },
   {
     id: 4,
-    name: "카멜레온",
-    src: "https://image.flaticon.com/icons/svg/3069/3069230.svg",
+    name: "p4",
     color: "lightseagreen",
   },
   {
     id: 5,
-    name: "강아지",
-    src: "https://image.flaticon.com/icons/svg/3069/3069267.svg",
+    name: "p5",
     color: "darkorange",
   },
   {
     id: 6,
-    name: "기린",
-    src: "https://image.flaticon.com/icons/svg/3069/3069201.svg",
+    name: "p6",
     color: "peru",
   },
   {
     id: 7,
-    name: "돌고래",
-    src: "https://image.flaticon.com/icons/svg/3069/3069269.svg",
+    name: "p7",
     color: "royalblue",
   },
   {
     id: 8,
-    name: "말",
-    src: "https://image.flaticon.com/icons/svg/3069/3069284.svg",
+    name: "p8",
     color: "saddlebrown",
   },
   {
     id: 9,
-    name: "여우",
-    src: "https://image.flaticon.com/icons/svg/3069/3069166.svg",
+    name: "p9",
     color: "salmon",
   },
   {
     id: 10,
-    name: "코끼리",
-    src: "https://image.flaticon.com/icons/svg/3069/3069224.svg",
+    name: "p10",
     color: "rebeccapurple",
   },
 ];
@@ -68,6 +58,7 @@ export const initState = {
   playerCount: 2,
   players: [],
   cases: {},
+  names: {},
   results: {},
   gameState: "notReady",
   legs: [],
@@ -92,6 +83,7 @@ export const reducer = (state, action) => {
         page: "game",
         players: getRandomPlayers(state.playerCount, data),
         cases: resetCase(state.playerCount),
+        names: resetName(state.playerCount),
         legs: getRandomLegs(state.playerCount),
       };
     case "START_GAME":
@@ -103,6 +95,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         cases: { ...state.cases, [action.idx]: action.value },
+      };
+      case "INPUT_NAME":
+      return {
+        ...state,
+        names: { ...state.names, [action.idx]: action.value },
       };
     case "CHECK_READY":
       return {
@@ -129,6 +126,7 @@ export const reducer = (state, action) => {
         results: {},
         players: getRandomPlayers(state.playerCount, data),
         cases: resetCase(state.playerCount),
+        names: resetName(state.playerCount),
         legs: getRandomLegs(state.playerCount),
       };
     case "UPDATE_RESULT":

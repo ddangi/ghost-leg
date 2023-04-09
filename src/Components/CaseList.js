@@ -35,13 +35,14 @@ const CaseList = ({
   gameState,
   results,
   cases,
+  names,
   checkReady,
   inputCase,
 }) => {
   // console.log("caselist rendering");
   useEffect(() => {
-    Object.keys(cases).length && checkReady(cases);
-  }, [cases]);
+    Object.keys(cases).length && checkReady(cases, names);
+  }, [cases, names]);
 
   return (
     <CaseListWrapper>

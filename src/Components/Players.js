@@ -1,56 +1,141 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect } from "react";
+import styled, { css } from "styled-components";
 import A11yTitle from "./A11yTitle";
 
-const Players = ({ players }) => {
-  const height = (window.innerHeight * 0.8) / players.length;
-  // console.log(
-  //   "players rendering",
-  //   players.map((p) => p.name)
-  // );
+const Player = React.memo(
+  ({ idx, value, gameState, inputName, resultColor, playerCount }) => {
+    // console.log("cases rendering");
+    return (
+      <>
+        <A11yTitle element="h3" text="플레이어 입력 필드 리스트" />
+        <PlayerWrapper playerCount={playerCount}>
+          {["setting", "ready", "notReady"].includes(gameState) ? (
+            <PlayerInput
+              type="text"
+              aria-label={`player ${idx + 1}`}
+              placeholder={`player ${idx + 1}`}
+              gameState={gameState}
+              onChange={(e) => inputName(e, idx)}
+              value={value}
+              tabIndex={idx + 2}
+              autoFocus={!idx}
+            />
+          ) : (
+            <PlayerBox resultColor={resultColor}>{value}</PlayerBox>
+          )}
+        </PlayerWrapper>
+      </>
+    );
+  }
+);
+
+const PlayerList = ({
+  players,
+  playerCount,
+  gameState,
+  results,
+  cases,
+  names,
+  checkReady,
+  inputName,
+}) => {
+  // console.log("caselist rendering");
+  useEffect(() => {
+    Object.keys(names).length && checkReady(cases, names);
+  }, [cases, names]);
+
   return (
-    <>
-      <A11yTitle element="h3" text="플레이어 목록" />
-      <PlayerList height={height}>
-        {players.map(({ id, name, src }) => (
-          <Player key={id} height={height}>
-            <PlayerImg src={src} alt={`${name} 플레이어`} />
-          </Player>
-        ))}
-      </PlayerList>
-    </>
+    <PlayerListWrapper>
+      {players.map((_, idx) => {
+        let result = null;
+        for (const player in results) {
+          if (results[player] === idx) result = player;
+        }
+        return (
+          <Player
+            key={idx}
+            idx={idx}
+            value={names[idx]}
+            gameState={gameState}
+            inputName={inputName}
+            playerCount={playerCount}
+            resultColor={players[result] && players[result].color}
+          />
+        );
+      })}
+    </PlayerListWrapper>
   );
 };
 
-export default React.memo(Players);
+export default React.memo(PlayerList);
 
-const PlayerList = styled.ul`
+const PlayerListWrapper = styled.ul`
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
   margin: 0 auto;
-  margin-top: 8rem;
   width: 80%;
-  height: ${({ height }) => height};
 
   @media ${({ theme }) => theme.mobile} {
     width: 100%;
-    margin-top: 7rem;
   }
 `;
 
-const Player = styled.li`
-  width: 20%;
-  height: ${({ height }) => height};
+const PlayerWrapper = styled.li`
+  flex-basis: ${({ playerCount }) => (playerCount < 4 ? "30%" : "20%")};
+  padding: 0 0.5%;
+  min-width: 0;
 `;
 
-const PlayerImg = styled.img`
+const caseStyle = css`
+  height: 4rem;
+  width: 100%;
+  border: 2px solid cornflowerblue;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  text-align: center;
+
+  @media ${({ theme }) => theme.mobile} {
+    height: 3rem;
+    font-size: 1.4rem;
+  }
+`;
+
+const PlayerInput = styled.input`
+  ${caseStyle};
+
+  &::placeholder {
+    text-align: center;
+    font-size: 1.6rem;
+  }
+
+  &:focus {
+    box-shadow: 0 0 1px 2px white, 0 0 1px 5px cornflowerblue;
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    &::placeholder {
+      font-size: 1.4rem;
+    }
+
+    &:focus {
+      box-shadow: 0 0 1px 1px white, 0 0 1px 2px cornflowerblue;
+    }
+  }
+`;
+
+const PlayerBox = styled.span`
+  ${caseStyle};
+  color: white;
+  background-color: ${({ resultColor }) => resultColor || "cornflowerblue"};
+  border: none;
   display: block;
-  margin: 0 auto;
-  width: 70%;
-  min-height: 3rem;
-  min-width: 3rem;
-  max-width: 8rem;
-  object-fit: cover;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 1rem;
+  line-height: 4rem;
+
+  @media ${({ theme }) => theme.mobile} {
+    line-height: 3rem;
+  }
 `;

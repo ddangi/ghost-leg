@@ -4,13 +4,14 @@ import CaseList from "Components/CaseList";
 
 const CaseListContainer = () => {
   const { state, checkReady, inputCase } = useContext(Context);
-  const { players, playerCount, cases, gameState, results } = state;
+  const { players, playerCount, cases, names, gameState, results } = state;
 
   return (
     <CaseList
       players={players}
       playerCount={playerCount}
       cases={cases}
+      names={names}
       results={results}
       gameState={gameState}
       checkReady={checkReady}
