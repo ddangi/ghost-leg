@@ -33,7 +33,6 @@ const PlayerList = ({
   players,
   playerCount,
   gameState,
-  results,
   cases,
   names,
   checkReady,
@@ -46,11 +45,7 @@ const PlayerList = ({
 
   return (
     <PlayerListWrapper>
-      {players.map((_, idx) => {
-        let result = null;
-        for (const player in results) {
-          if (results[player] === idx) result = player;
-        }
+      {players.map((_, idx) => {       
         return (
           <Player
             key={idx}

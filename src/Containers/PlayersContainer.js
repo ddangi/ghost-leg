@@ -4,7 +4,7 @@ import { Context } from "Context";
 
 const PlayersContainer = () => {
   const { state, checkReady, inputName } = useContext(Context);
-  const { players, playerCount, cases, names, gameState, results } = state;
+  const { players, playerCount, cases, names, gameState } = state;
 
   return (
     <PlayerList
@@ -12,7 +12,6 @@ const PlayersContainer = () => {
       playerCount={playerCount}
       cases={cases}
       names={names}
-      results={results}
       gameState={gameState}
       checkReady={checkReady}
       inputName={inputName}
