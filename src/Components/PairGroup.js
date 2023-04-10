@@ -9,7 +9,7 @@ const PairGroup = ({ results, players, cases, names }) => {
       <Wrapper>
         {players.map((player, idx) => (
           <Pair key={idx}>
-            <Case color={player.color}>{names[results[idx]]}</Case>
+            <Case color={player.color}>{names[idx]}</Case>
             <Case color={player.color}>{cases[results[idx]]}</Case>
           </Pair>
         ))}

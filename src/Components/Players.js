@@ -59,7 +59,7 @@ const PlayerList = ({
             gameState={gameState}
             inputName={inputName}
             playerCount={playerCount}
-            resultColor={players[result] && players[result].color}
+            resultColor={players[idx] && players[idx].color}
           />
         );
       })}
