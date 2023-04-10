@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/ghost-leg/static/js/main.d1a9dc59.js",
+    "main.js": "/ghost-leg/static/js/main.75e81eb0.js",
     "index.html": "/ghost-leg/index.html",
-    "main.d1a9dc59.js.map": "/ghost-leg/static/js/main.d1a9dc59.js.map"
+    "main.75e81eb0.js.map": "/ghost-leg/static/js/main.75e81eb0.js.map"
   },
   "entrypoints": [
-    "static/js/main.d1a9dc59.js"
+    "static/js/main.75e81eb0.js"
   ]
 }
