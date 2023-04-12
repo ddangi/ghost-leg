@@ -26,23 +26,29 @@ const getRandomLegs = (playerCount) => {
   let rows = new Set();
   let column = 0;
 
-  for (let i = 1; i < playerCount; i++) legCounts.push(getRandomNumber(2, 5));
-
-  while (column < playerCount - 1) {
-    if (rows.size === legCounts[column]) {
-      legs.push([...rows].sort());
-      rows = new Set();
-      column++;
-    }
-
-    const num = getRandomNumber(0, 9);
-    if (column < 1) rows.add(num);
-    else {
-      const isDuplicate = legs[column - 1].includes(num);
-      if (!isDuplicate) rows.add(num);
-    }
+  for (let i = 1; i < playerCount; i++) 
+  {
+    legCounts.push(getRandomNumber(2, 5));
   }
 
+  for(let column = 0; column < playerCount - 1; column++)
+  {
+    let rows = new Set();
+    while(rows.size < legCounts[column])
+    {
+      const num = getRandomNumber(0, 9);
+      if (0 < column) 
+      {
+        if (legs[column - 1].includes(num)) 
+          continue;
+      }      
+      
+      rows.add(num);
+    }
+    
+    legs.push([...rows].sort());
+  }
+  
   return legs;
 };
 
