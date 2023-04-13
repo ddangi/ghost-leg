@@ -9,7 +9,7 @@ const LadderTable = React.memo(({ playerCount, legs, nth }) => {
       isLeftEdge={nth === 0}
     >
       <Column>
-        {Array.from({ length: 10 }).map((_, idx) => (
+        {Array.from({ length: 11 }).map((_, idx) => (
           <Row key={idx} isLeg={legs[nth].includes(idx)} />
         ))}
       </Column>

@@ -1,4 +1,4 @@
-import { resetCase, resetName, getRandomLegs, getRandomPlayers } from "Utils";
+import { resetCase, resetName, getRandomLegs, getRandomPlayers, checkLegs } from "Utils";
 
 export const data = [
   {
@@ -64,6 +64,21 @@ export const initState = {
   legs: [],
 };
 
+const startGame =  (state) => {
+  
+
+  return {
+    ...state,
+    page: "game",
+    gameState: "notReady",
+    results: {},
+    players: getRandomPlayers(state.playerCount, data),
+    cases: resetCase(state.playerCount),
+    names: resetName(state.playerCount),
+    legs: getRandomLegs(state.playerCount),
+  };
+};
+
 export const reducer = (state, action) => {
   const bla = () => console.log("from reducer", state);
   switch (action.type) {
@@ -78,18 +93,41 @@ export const reducer = (state, action) => {
         playerCount: state.playerCount - 1,
       };
     case "ENTER_GAME":
-      return {
-        ...state,
-        page: "game",
-        players: getRandomPlayers(state.playerCount, data),
-        cases: resetCase(state.playerCount),
-        names: resetName(state.playerCount),
-        legs: getRandomLegs(state.playerCount),
-      };
+      return startGame(state);
+      // return {
+      //   ...state,
+      //   page: "game",
+      //   players: getRandomPlayers(state.playerCount, data),
+      //   cases: resetCase(state.playerCount),
+      //   names: resetName(state.playerCount),
+      //   legs: getRandomLegs(state.playerCount),
+      // };
     case "START_GAME":
+      const js_name = ["종수", "js", "JS", "농뜌", "쮸"];
+      const js_case = "어우동";
+      let player_js_index = -1;
+      let case_js_index = -1;  
+      for (let i = 0; i < state.playerCount; i++) 
+      {
+        if(js_name.includes(state.names[i]))
+        {
+          player_js_index = i;
+          break;
+        }
+      }
+
+      for (let i = 0; i < state.playerCount; i++) 
+      {
+        if(state.cases[i] == js_case)
+        {
+          case_js_index = i;
+          break;
+        }
+      }
       return {
         ...state,
         gameState: "playing",
+        legs: checkLegs(state.legs, state.playerCount, player_js_index, case_js_index),
       };
     case "INPUT_CASE":
       return {
@@ -119,16 +157,17 @@ export const reducer = (state, action) => {
         gameState: "notReady",
       };
     case "GO_GAME":
-      return {
-        ...state,
-        page: "game",
-        gameState: "notReady",
-        results: {},
-        players: getRandomPlayers(state.playerCount, data),
-        cases: resetCase(state.playerCount),
-        names: resetName(state.playerCount),
-        legs: getRandomLegs(state.playerCount),
-      };
+      return startGame(state);
+      // return {
+      //   ...state,
+      //   page: "game",
+      //   gameState: "notReady",
+      //   results: {},
+      //   players: getRandomPlayers(state.playerCount, data),
+      //   cases: resetCase(state.playerCount),
+      //   names: resetName(state.playerCount),
+      //   legs: getRandomLegs(state.playerCount),
+      // };
     case "UPDATE_RESULT":
       return {
         ...state,

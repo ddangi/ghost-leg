@@ -14,7 +14,7 @@ const PathsContainer = ({ idx, canvasRef }) => {
   const canvasWidth = canvas && canvas.width;
   const canvasHeight = canvas && canvas.height;
   const gapX = canvasWidth / (playerCount * 2);
-  const gapY = Math.floor(canvasHeight / 10);
+  const gapY = Math.floor(canvasHeight / 11);
   const RIGHT = "RIGHT";
   const LEFT = "LEFT";
   const STRAIGHT = "STRAIGHT";
