@@ -20,12 +20,9 @@ const getRandomPlayers = (playerCount, data) => {
   return [...players];
 };
 
-const getRandomLegs = (playerCount, player_js_index, case_js_index) => {
+const getRandomLegs = (playerCount) => {
   const legCounts = [];
   const legs = [];
-  let rows = new Set();
-  let column = 0;
-
   for (let i = 1; i < playerCount; i++) 
   {
     legCounts.push(getRandomNumber(2, 5));
